@@ -1,6 +1,7 @@
 <?php
 /**
  * File modified from Filp/Whoops
+ *
  * @author Filipe Dobreira <http://github.com/filp>
  * @author Brandon Savage <http://github.com/brandonsavage>
  */
