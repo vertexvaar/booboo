@@ -185,26 +185,24 @@ class Frame implements Serializable
     {
         $contents = $this->getFileContents();
 
-        if (isset($contents)) {
-            $lines = explode(PHP_EOL, $contents);
-            // Get a subset of lines from $start to $end
-            if ($length !== null) {
-                $start  = (int) $start;
-                $length = (int) $length;
+        $lines = explode(PHP_EOL, $contents);
+        // Get a subset of lines from $start to $end
+        if ($length !== null) {
+            $start = (int)$start;
+            $length = (int)$length;
 
-                if ($start < 0) {
-                    $start = 0;
-                }
-
-                if ($length <= 0) {
-                    throw new \InvalidArgumentException(sprintf('$length must be greater than 0'));
-                }
-
-                $lines = array_slice($lines, $start, $length, true);
+            if ($start < 0) {
+                $start = 0;
             }
 
-            return $lines;
+            if ($length <= 0) {
+                throw new \InvalidArgumentException(sprintf('$length must be greater than 0'));
+            }
+
+            $lines = array_slice($lines, $start, $length, true);
         }
+
+        return $lines;
     }
 
     /**
