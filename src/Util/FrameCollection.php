@@ -1,6 +1,7 @@
 <?php
 /**
  * File used from Filp/Whoops
+ *
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
