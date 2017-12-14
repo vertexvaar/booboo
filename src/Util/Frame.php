@@ -196,7 +196,7 @@ class Frame implements Serializable
             }
 
             if ($length <= 0) {
-                throw new \InvalidArgumentException(sprintf('$length must be greater than 0'));
+                throw new \InvalidArgumentException('$length must be greater than 0');
             }
 
             $lines = array_slice($lines, $start, $length, true);
