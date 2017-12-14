@@ -9,19 +9,8 @@ use League\BooBoo\Handler\HandlerInterface;
 
 class BooBoo
 {
-    /**
-     * A constant for the error handling function.
-     */
     const ERROR_HANDLER = 'errorHandler';
-
-    /**
-     * A constant for the exception handler.
-     */
     const EXCEPTION_HANDLER = 'exceptionHandler';
-
-    /**
-     * A constant for the shutdown handler.
-     */
     const SHUTDOWN_HANDLER = 'shutdownHandler';
 
     /**
