@@ -126,9 +126,9 @@ class BooBoo
             print $formattedResponse;
         }
 
-        if ($this->silenceErrors &&
-            isset($this->errorPage) &&
-            !($e instanceof ErrorException)
+        if ($this->silenceErrors
+            && isset($this->errorPage)
+            && !($e instanceof ErrorException)
         ) {
             ob_start();
             $response = $this->errorPage->format($e);
