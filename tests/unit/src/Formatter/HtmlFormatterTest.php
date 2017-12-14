@@ -3,9 +3,10 @@
 use League\BooBoo\Formatter\HtmlFormatter;
 use PHPUnit\Framework\TestCase;
 
-class HtmlFormatterTest extends TestCase {
-
-    public function testErrorExceptionFormatting() {
+class HtmlFormatterTest extends TestCase
+{
+    public function testErrorExceptionFormatting()
+    {
         $exception = new \ErrorException('whoops', 0, E_ERROR, 'index.php', 11);
         $formatter = new HtmlFormatter();
         $result = $formatter->format($exception);
@@ -15,7 +16,8 @@ class HtmlFormatterTest extends TestCase {
         $this->assertEquals($expected, $result);
     }
 
-    public function testRegularExceptionErrorFormatting() {
+    public function testRegularExceptionErrorFormatting()
+    {
         $exception = new \Exception('whoops');
         $file = $exception->getFile();
         $line = $exception->getLine();
@@ -26,7 +28,8 @@ class HtmlFormatterTest extends TestCase {
         $this->assertNotFalse(strpos($result, $expected));
     }
 
-    public function testNestedExceptionsDisplayBothMessages() {
+    public function testNestedExceptionsDisplayBothMessages()
+    {
         $exception = new \Exception('whoops');
         $exception2 = new Exception('bang', 0, $exception);
 
@@ -42,5 +45,4 @@ class HtmlFormatterTest extends TestCase {
         $this->assertNotFalse($position2);
         $this->assertGreaterThan($position1, $position2);
     }
-
 }

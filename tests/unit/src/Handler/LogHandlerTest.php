@@ -3,8 +3,8 @@
 use League\BooBoo\Handler\LogHandler;
 use PHPUnit\Framework\TestCase;
 
-class LogHandlerTest extends TestCase {
-
+class LogHandlerTest extends TestCase
+{
     /**
      * @var LogHandler
      */
@@ -15,13 +15,14 @@ class LogHandlerTest extends TestCase {
      */
     protected $logger;
 
-
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->logger = Mockery::mock('Psr\Log\LoggerInterface');
         $this->handler = new LogHandler($this->logger);
     }
 
-    public function testExceptionsAreLoggedCritical() {
+    public function testExceptionsAreLoggedCritical()
+    {
         $this->logger->shouldReceive('critical')->once();
 
         $this->handler->handle(new \Exception);
@@ -33,7 +34,8 @@ class LogHandlerTest extends TestCase {
         }
     }
 
-    public function testErrorExceptionForErrors() {
+    public function testErrorExceptionForErrors()
+    {
         $message = 'test message';
         $exception = new \ErrorException($message);
         $this->logger->shouldReceive('error')->times(6);
@@ -52,7 +54,8 @@ class LogHandlerTest extends TestCase {
         }
     }
 
-    public function testErrorExceptionForWarnings() {
+    public function testErrorExceptionForWarnings()
+    {
         $message = 'test message';
         $exception = new \ErrorException($message);
         $this->logger->shouldReceive('warning')->times(4);
@@ -62,7 +65,6 @@ class LogHandlerTest extends TestCase {
         $this->handler->handle(new \ErrorException($message, 0, E_CORE_WARNING));
         $this->handler->handle(new \ErrorException($message, 0, E_COMPILE_WARNING));
 
-
         try {
             $this->logger->mockery_verify();
         } catch (\Exception $e) {
@@ -70,7 +72,8 @@ class LogHandlerTest extends TestCase {
         }
     }
 
-    public function testErrorExceptionForNoticesAndInfo() {
+    public function testErrorExceptionForNoticesAndInfo()
+    {
         $message = 'test message';
         $exception = new \ErrorException($message);
         $this->logger->shouldReceive('notice')->times(2);
@@ -81,8 +84,6 @@ class LogHandlerTest extends TestCase {
         $this->handler->handle(new \ErrorException($message, 0, E_STRICT));
         $this->handler->handle(new \ErrorException($message, 0, E_DEPRECATED));
         $this->handler->handle(new \ErrorException($message, 0, E_USER_DEPRECATED));
-
-
 
         try {
             $this->logger->mockery_verify();

@@ -35,5 +35,4 @@ class InspectorText extends TestCase
         $this->assertEquals(count($this->exception->getTrace()), count($frames));
         $this->assertTrue($this->inspector->hasFrames());
     }
-
 }

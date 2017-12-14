@@ -9,20 +9,23 @@ use League\BooBoo\Formatter;
  * on their own makes sense. This stub class exists solely to ensure testing these
  * methods is possible.
  */
-class AbstractFormatterExt extends Formatter\AbstractFormatter {
-
-    public function format($e) {
+class AbstractFormatterExt extends Formatter\AbstractFormatter
+{
+    public function format($e)
+    {
         throw new \Exception('This method is not implemented');
     }
 
-    public function getSeverity($severity) {
+    public function getSeverity($severity)
+    {
         return $this->determineSeverityTextValue($severity);
     }
 }
 
-class AbstractFormatterTest extends \PHPUnit\Framework\TestCase {
-
-    public function testSeverityTextCorrect() {
+class AbstractFormatterTest extends \PHPUnit\Framework\TestCase
+{
+    public function testSeverityTextCorrect()
+    {
         $formatter = new AbstractFormatterExt;
         $this->assertEquals('Fatal Error', $formatter->getSeverity(E_ERROR));
         $this->assertEquals('Fatal Error', $formatter->getSeverity(E_USER_ERROR));
@@ -41,18 +44,19 @@ class AbstractFormatterTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals('Deprecated', $formatter->getSeverity(E_USER_DEPRECATED));
     }
 
-    public function testInvalidSeverityGeneratesNotDeterminedMessage() {
+    public function testInvalidSeverityGeneratesNotDeterminedMessage()
+    {
         $formatter = new AbstractFormatterExt();
         $severity = $formatter->getSeverity(1234);
         $this->assertEquals('Unknown Error', $severity);
     }
 
-    public function testGetAndSetErrorSeverityLevels() {
+    public function testGetAndSetErrorSeverityLevels()
+    {
         $formatter = new AbstractFormatterExt();
         $this->assertEquals(E_ALL, $formatter->getErrorLimit());
 
         $formatter->setErrorLimit(E_ERROR);
         $this->assertEquals(E_ERROR, $formatter->getErrorLimit());
     }
-
 }

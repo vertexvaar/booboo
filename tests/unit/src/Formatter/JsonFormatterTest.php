@@ -3,24 +3,28 @@
 use League\BooBoo\Formatter\JsonFormatter;
 use PHPUnit\Framework\TestCase;
 
-class JsonFormatterTest extends TestCase {
-
-    public function testErrorExceptionFormatting() {
+class JsonFormatterTest extends TestCase
+{
+    public function testErrorExceptionFormatting()
+    {
         $exception = new \ErrorException('whoops', 0, E_ERROR, 'index.php', 11);
         $formatter = new JsonFormatter();
         $result = $formatter->format($exception);
 
-        $expected = json_encode([
-            'message' => 'whoops',
-            'severity' => 'Fatal Error',
-            'file' => 'index.php',
-            'line' => 11,
-        ]);
+        $expected = json_encode(
+            [
+                'message' => 'whoops',
+                'severity' => 'Fatal Error',
+                'file' => 'index.php',
+                'line' => 11,
+            ]
+        );
 
         $this->assertEquals($expected, $result);
     }
 
-    public function testRegularExceptionErrorFormatting() {
+    public function testRegularExceptionErrorFormatting()
+    {
         $exception = new \Exception('whoops', 123);
         $trace = $exception->getTrace();
         $line = $exception->getLine();
@@ -44,7 +48,8 @@ class JsonFormatterTest extends TestCase {
         $this->assertEquals($expected, $result);
     }
 
-    public function testNestedExceptionsDisplayBothMessages() {
+    public function testNestedExceptionsDisplayBothMessages()
+    {
         $exception = new \Exception('whoops');
         $exception2 = new Exception('bang', 0, $exception);
 
@@ -56,7 +61,5 @@ class JsonFormatterTest extends TestCase {
         $this->assertEquals(2, count($result));
         $this->assertEquals('whoops', $result[0]['message']);
         $this->assertEquals('bang', $result[1]['message']);
-
     }
-
 }

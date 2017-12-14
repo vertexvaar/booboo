@@ -37,7 +37,6 @@ class RavenHandlerTest extends TestCase
 
         $handler = new SentryHandler($ravenClient, $errorLevel);
         $handler->handle(new ErrorException('test', 0, E_NOTICE));
-
     }
 
     protected function tearDown()

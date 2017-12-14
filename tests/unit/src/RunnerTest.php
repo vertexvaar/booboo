@@ -17,20 +17,23 @@ function error_get_last()
     ];
 }
 
-class BooBooExt extends BooBoo {
-
+class BooBooExt extends BooBoo
+{
     static public $LAST_ERROR = E_ERROR;
 
-    public function getSilence() {
+    public function getSilence()
+    {
         return $this->silenceErrors;
     }
 
-    public function register() {
+    public function register()
+    {
         parent::register();
         $this->registered = true;
     }
 
-    public function deregister() {
+    public function deregister()
+    {
         parent::deregister();
         $this->registered = false;
     }
@@ -39,11 +42,10 @@ class BooBooExt extends BooBoo {
     {
         return;
     }
-
 }
 
-class RunnerTest extends TestCase {
-
+class RunnerTest extends TestCase
+{
     /**
      * @var BooBoo
      */
@@ -53,9 +55,11 @@ class RunnerTest extends TestCase {
      * @var Mockery\MockInterface
      */
     protected $formatter;
+
     protected $handler;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         ini_set('display_errors', true);
         $this->runner = new BooBoo([]);
 
@@ -67,12 +71,14 @@ class RunnerTest extends TestCase {
     /**
      * @expectedException \League\BooBoo\Exception\NoFormattersRegisteredException
      */
-    public function testNoFormatterRaisesException() {
+    public function testNoFormatterRaisesException()
+    {
         $runner = new BooBoo([]);
         $runner->register();
     }
 
-    public function testHandlerMethods() {
+    public function testHandlerMethods()
+    {
         $runner = new BooBoo([]);
 
         $this->assertEmpty($runner->getHandlers());
@@ -88,7 +94,8 @@ class RunnerTest extends TestCase {
         $this->assertEmpty($runner->getHandlers());
     }
 
-    public function testFormatterMethods() {
+    public function testFormatterMethods()
+    {
         $runner = new BooBoo([]);
 
         $this->assertEmpty($runner->getFormatters());
@@ -104,7 +111,8 @@ class RunnerTest extends TestCase {
         $this->assertEmpty($runner->getFormatters());
     }
 
-    public function testConstructorAssignsHandlersAndFormatters() {
+    public function testConstructorAssignsHandlersAndFormatters()
+    {
         $runner = new BooBoo(
             [
                 Mockery::mock('League\BooBoo\Formatter\FormatterInterface'),
@@ -119,7 +127,8 @@ class RunnerTest extends TestCase {
         $this->assertCount(1, $runner->getHandlers());
     }
 
-    public function testErrorsSilencedWhenSilenceTrue() {
+    public function testErrorsSilencedWhenSilenceTrue()
+    {
         $formatter = Mockery::mock('League\BooBoo\Formatter\FormatterInterface');
         $formatter->shouldReceive('getErrorLimit')->never();
         $formatter->shouldReceive('format')->never();
@@ -130,7 +139,6 @@ class RunnerTest extends TestCase {
 
         // Now we fake an error
         $runner->errorHandler(E_WARNING, 'warning', 'index.php', 11);
-
 
         // Let's verify that it wasn't called.
         try {
@@ -143,12 +151,14 @@ class RunnerTest extends TestCase {
     /**
      * @expectedException \ErrorException
      */
-    public function testThrowErrorsAsExceptions() {
+    public function testThrowErrorsAsExceptions()
+    {
         $this->runner->treatErrorsAsExceptions(true);
         $this->runner->errorHandler(E_WARNING, 'test', 'test.php', 11);
     }
 
-    public function testFormattersFormatCode() {
+    public function testFormattersFormatCode()
+    {
         $this->formatter->shouldReceive('getErrorLimit')->andReturn(E_ALL);
         $this->formatter->shouldReceive('format')->twice()->andReturn('');
 
@@ -162,15 +172,16 @@ class RunnerTest extends TestCase {
         }
     }
 
-    public function testErrorReportingOffSilencesErrors() {
+    public function testErrorReportingOffSilencesErrors()
+    {
         error_reporting(0);
         $result = $this->runner->errorHandler(E_WARNING, 'error', 'index.php', 11);
         $this->assertTrue($result);
         error_reporting(E_ALL);
     }
 
-
-    public function testErrorReportingOffStillKillsFatalErrors() {
+    public function testErrorReportingOffStillKillsFatalErrors()
+    {
         error_reporting(0);
         $runner = new BooBooExt([]);
         $result = $runner->errorHandler(E_ERROR, 'error', 'index.php', 11);
@@ -178,7 +189,8 @@ class RunnerTest extends TestCase {
         error_reporting(E_ALL);
     }
 
-    public function testErrorsSilencedWhenErrorReportingOff() {
+    public function testErrorsSilencedWhenErrorReportingOff()
+    {
         $er = ini_get('display_errors');
         ini_set('display_errors', 0);
 
@@ -188,7 +200,8 @@ class RunnerTest extends TestCase {
         $this->assertTrue($runner->getSilence());
     }
 
-    public function testRegisterAndDeregister() {
+    public function testRegisterAndDeregister()
+    {
         $formatter = Mockery::mock('League\BooBoo\Formatter\FormatterInterface');
         $formatter->shouldIgnoreMissing();
 
@@ -201,7 +214,8 @@ class RunnerTest extends TestCase {
         $this->assertFalse($runner->registered);
     }
 
-    public function testErrorPageHandler() {
+    public function testErrorPageHandler()
+    {
         $this->runner->setErrorPageFormatter($this->formatter);
         $this->runner->silenceAllErrors(true);
         $this->formatter->shouldReceive('format')->andReturn('');
@@ -238,7 +252,6 @@ class RunnerTest extends TestCase {
         $runner = new BooBooExt([$formatter]);
         $runner->shutdownHandler();
     }
-
 
     public function testShutdownHandlerIgnoresNonfatal()
     {
