@@ -2,8 +2,6 @@
 
 namespace League\BooBoo;
 
-use League\BooBoo\Formatter;
-use League\BooBoo\Handler;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
