@@ -1,6 +1,7 @@
 <?php
 /**
  * File used from Filp/Whoops
+ *
  * @author Filipe Dobreira <http://github.com/filp>
  */
 
@@ -182,7 +183,7 @@ class Frame implements Serializable
      *
      * @return string[]
      *
-     * @throws \InvalidArgumentException if $length is less than or equal to 0
+     * @throws InvalidArgumentException if $length is less than or equal to 0
      */
     public function getFileLines($start = 0, $length = null)
     {
@@ -199,7 +200,7 @@ class Frame implements Serializable
             }
 
             if ($length <= 0) {
-                throw new \InvalidArgumentException('$length must be greater than 0');
+                throw new InvalidArgumentException('$length must be greater than 0');
             }
 
             $lines = array_slice($lines, $start, $length, true);
