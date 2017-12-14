@@ -10,8 +10,6 @@ use ArrayAccess;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
-use Serializable;
-use UnexpectedValueException;
 
 /**
  * Exposes a fluent interface for dealing with an ordered list
