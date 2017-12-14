@@ -177,7 +177,7 @@ class Frame implements Serializable
      * @param integer $start
      * @param integer $length
      *
-     * @return string[]|null
+     * @return string[]
      *
      * @throws \InvalidArgumentException if $length is less than or equal to 0
      */
