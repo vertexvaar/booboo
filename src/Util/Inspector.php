@@ -96,8 +96,8 @@ class Inspector
             // the next frame does have a filename / linenumber, though.
             if ($this->exception instanceof \ErrorException) {
                 foreach ($frames as $k => $frame) {
-                    if (isset($frame['class']) &&
-                        strpos($frame['class'], 'BooBoo') !== false
+                    if (isset($frame['class'])
+                        && strpos($frame['class'], 'BooBoo') !== false
                     ) {
                         unset($frames[$k]);
                     }
