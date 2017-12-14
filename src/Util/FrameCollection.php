@@ -28,9 +28,9 @@ class FrameCollection implements ArrayAccess, IteratorAggregate, Countable
      */
     public function __construct(array $frames)
     {
-        $this->frames = array_map(function ($frame) {
-            return new Frame($frame);
-        }, $frames);
+        foreach ($frames as $frame) {
+            $this->frames[] = new Frame($frame);
+        }
     }
 
     /**
